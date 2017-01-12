@@ -1,0 +1,190 @@
+package com.adox.semacc.service;
+
+
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.wifi.WifiConfiguration;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
+import android.os.SystemClock;
+import android.speech.tts.TextToSpeech;
+import android.util.Log;
+
+import com.adox.semacc.udp.UdpClient;
+import com.adox.semacc.udp.UdpDataHandler;
+import com.adox.semacc.util.Util;
+
+import java.util.HashMap;
+
+
+/**
+ * Comunicacion entre la aplicacion y un semáforo en particular
+ */
+public class SemComunication extends BroadcastReceiver implements Runnable, UdpDataHandler,
+        TextToSpeech.OnInitListener {
+
+    private static int networkId;
+    private static String currentSSID;
+    private static HashMap<String, SemComunication> currentComunications = new HashMap<String, SemComunication>();
+    public static boolean run = true;
+    private TextToSpeech textToSpeech;
+    private boolean running = true;
+    private WifiManager wifi;
+    private WifiConfiguration conf;
+    private Context context;
+    private String SSID;
+    public  UdpClient client;
+
+    private static final int TIEMPO_AVISO = 5;
+
+    // Tiempos y datos del cruce
+    int tiempoVerde = 0;
+    int tiempoRojo = 0;
+    int tiempoDisponible = 0;
+    int lastAlert = 100;
+    String calleRojo = "";
+    String calleVerde = "";
+    boolean reproducirCompleto = true;
+    private boolean continueAskingTimes = true;
+    private boolean canCross = false;
+
+    public static void create(String SSID, Context context) {
+
+        if (!SSID.equals(SemComunication.currentSSID)) {
+
+            SemComunication comunication = new SemComunication();
+
+            comunication.wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+            comunication.context = context;
+            comunication.SSID = SSID;
+
+            new Thread(comunication).start();
+
+        }
+    }
+
+
+    @Override
+    public void run() {
+        this.textToSpeech = new TextToSpeech(context, this);
+        this.textToSpeech.setSpeechRate(2);
+        createClient();
+        while(true) {
+            requestTimes();
+            SystemClock.sleep(3000);
+        }
+
+    }
+    /**
+     * Implementacion del metodo que recibe cambios en el estado de la señal
+     */
+    @Override
+    public void onReceive(Context context, Intent intent) {
+
+
+    }
+
+    /**
+     * Crea el cliente TCP, y lo conecta
+     */
+    public void createClient() {
+        client = new UdpClient(Util.semIp, Util.semPort, this);
+
+        // Le paso true porque quiero que lo haga en un hilo nuevo
+        client.connect(true);
+    }
+
+    /**
+     * Cierra todas las conexiones y elimina el cliente
+     */
+    public void close() {
+        if (this.client != null && this.client.isConnected()) {
+            this.client.close();
+        }
+        this.running = false;
+    }
+
+    /**
+     * Este método se ejecuta cuando el socket ya esta conectado,
+     * por lo tanto hay conexión total con el semáforo
+     */
+    @Override
+    public void onConected(boolean ok) {
+
+    }
+
+    /**
+     * Estoy conectado y con el sintetizador iniciado
+     */
+    @Override
+    public void onInit(int i) {
+
+
+    }
+
+    /**
+     * Informa el tiempo para cruzar.
+     */
+    private void informTimeToCross() {
+
+    }
+
+
+
+    /**
+     * Una vez encontrado y conectado el semáforo, se solicita la informacion completa
+     */
+    protected void requestTimes() {
+
+        Log.i("#FSEM# SERVICE", "REQUEST TIME");
+
+        client.send("<TIEMPO>");
+
+    }
+
+
+    /**
+     * Llega un dato del semáforo por UDP
+     * @param data
+     */
+    @Override
+    public void onDataRead(String data) {
+        Log.i("#FSEM# SERVICE", "READ: " + data);
+
+        if (data == null) {
+            data = "";
+        }
+
+        data = data.substring(data.indexOf('<') + 1, data.indexOf('>'));
+
+        char first = data.charAt(0);
+        try{
+            if("R".equals(String.valueOf(first))){
+                Log.i("#FSEM# SERVICE","rojo");
+                textToSpeech.speak("Esta en rojo", TextToSpeech.QUEUE_FLUSH, null);
+            }else if("V".equals(String.valueOf(first))){
+                Log.i("#FSEM# SERVICE", "verde");
+                textToSpeech.speak("Esta en verde", TextToSpeech.QUEUE_FLUSH, null);
+            }
+        }catch (Exception e) {
+                e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * Invierte los roles de las calles, para cambiar el cruce-
+     * Es un paleativo en caso de que no llegue respuesa de requestFull.
+     */
+    private void invertStreets() {
+        this.canCross = !this.canCross;
+        String calleAux = this.calleVerde;
+        this.calleVerde = this.calleRojo;
+        this.calleRojo = this.calleVerde;
+    }
+
+
+
+}

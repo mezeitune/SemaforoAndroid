@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.adox.semacc.service.SemComunication;
 import com.adox.semacc.util.Util;
 import java.util.HashMap;
 import java.util.List;
@@ -49,7 +50,9 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ConnectToWiFi("InfoSign","adox2311", getApplicationContext());
+        ConnectToWiFi("InfoSign", "adox2311", getApplicationContext());
+
+        SemComunication.create("InfoSign", getApplicationContext());
 
     }
 

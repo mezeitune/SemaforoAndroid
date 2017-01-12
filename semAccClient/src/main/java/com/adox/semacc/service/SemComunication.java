@@ -188,7 +188,20 @@ public class SemComunication extends BroadcastReceiver implements Runnable, UdpD
     private void vibrarCruzar(){
         Vibrator v = (Vibrator) this.context.getSystemService(Context.VIBRATOR_SERVICE);
         // Vibrate for 500 milliseconds
-        v.vibrate(1200);
+       // v.vibrate(1500);
+        long[] pattern = new long[11];
+        pattern[0] = 500; // Wait one second
+        pattern[1] = 500;  // Vibrate for most a second
+        pattern[2] = 500;   // A pause long enough to feel distinction
+        pattern[3] = 500;  // Repeat 3 more times
+        pattern[4] = 500;
+        pattern[5] = 500;
+        pattern[6] = 500;
+        pattern[7] = 500;
+        pattern[8] = 500;
+        pattern[9] = 500;
+        pattern[10] = 500;
+        v.vibrate(pattern, -1);
     }
 
 }

@@ -1,0 +1,66 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices. 
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+    <style name="btnAdox">
+        <item name="android:layout_width">200dp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_marginBottom">2dp</item>
+        <item name="android:layout_marginLeft">2dp</item>
+        <item name="android:layout_marginRight">2dp</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">40sp</item>
+        <item name="android:background">@drawable/button_states</item>
+    </style>
+
+    <style name="txtInput">
+        <item name="android:layout_height">40dp</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:background">@drawable/input_shape</item>
+    </style>
+
+    <style name="separador">
+        <item name="android:background">@drawable/separador</item>
+    </style>
+
+    <style name="txtInputLabel">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">23sp</item>
+    </style>
+
+    <style name="panelPregunta">
+        <item name="android:padding">10dp</item>
+        <item name="android:background">@drawable/panel_shape</item>
+    </style>
+
+    <style name="panelBottom">
+        <item name="android:padding">10dp</item>
+        <item name="android:background">@drawable/panel_bottom_list</item>
+    </style>
+
+    <style name="panelTop">
+        <item name="android:padding">10dp</item>
+        <item name="android:background">@drawable/panel_top_list</item>
+    </style>
+
+</resources>

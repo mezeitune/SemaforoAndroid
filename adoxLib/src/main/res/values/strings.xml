@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Configuración -->
+    <string name="app_name">ADOXLIB</string>
+    <string name="services_url">http://190.220.137.99/*/services/Services</string>
+    
+    <!-- Mensajes de error -->
+    <string name="errorlogin">El email o clave son incorrectos</string>
+    <string name="errorlogin_net">No se pudieron comprobar sus credenciales. Verifique su conexión a internet.</string>
+    <string name="errorenc">Error cargando las encuestas, por favor reinicie la aplicación.</string>
+    <string name="errorpre">Error cargando las preguntas, por favor reinicie la aplicación.</string>
+    <string name="error_net">Hay inconvenientes en la sincronización con los servidores. Verifique su conexión a internet.</string>
+    
+    <!-- Titulos activity's -->
+    <string name="title_itinerario">Itinerario</string>
+    
+    <!-- Textos de los menu contextuales -->
+    <string name="action_exit">Salir</string>
+    <string name="action_logout">Logout</string>
+    <string name="action_info">Info</string>
+
+    <!-- Textos de la interfaz -->
+    <string name="logo_desc">WTrack</string>
+    <string name="emailin">E-Mail</string>
+    <string name="passin">Clave</string>
+    <string name="login">Entrar</string>
+    <string name="olvidoclave">Olvide mi clave</string>
+
+    <!-- Loading texts -->
+    <string name="loading_tit">Cargando&#8230;</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    
+
+</resources>

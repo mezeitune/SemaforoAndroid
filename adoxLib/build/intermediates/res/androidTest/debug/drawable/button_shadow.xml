@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape android:shape="rectangle"
+xmlns:android="http://schemas.android.com/apk/res/android">
+ 
+     <solid android:color="@color/primary_dark"/>
+     <corners android:radius="8dp"/>
+     <size android:height="5dp"/>
+ 
+</shape><!-- From: file:/Users/macbook/Desktop/SemaforoAndroidNuevaVersion/adoxLib/src/main/res/drawable/button_shadow.xml --><!-- From: file:/Users/macbook/Desktop/SemaforoAndroidNuevaVersion/adoxLib/build/intermediates/bundles/debug/res/drawable/button_shadow.xml -->

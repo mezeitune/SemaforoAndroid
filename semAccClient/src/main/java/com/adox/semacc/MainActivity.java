@@ -50,27 +50,13 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ConnectToWiFi("InfoSign", "adox2311", getApplicationContext());
+        Util.ConnectToWiFi("InfoSign", "adox2311", getApplicationContext());
 
         SemComunication.create("InfoSign", getApplicationContext());
 
     }
 
-    static public void ConnectToWiFi(String ssid ,String key,Context ctx) {
 
-        WifiConfiguration wifiConfig = new WifiConfiguration();
-        wifiConfig.SSID = String.format("\"%s\"", ssid);
-        wifiConfig.preSharedKey = String.format("\"%s\"", key);
-        WifiManager wifiManager = (WifiManager) ctx.getSystemService(ctx.WIFI_SERVICE);
-        int networkId = wifiManager.getConnectionInfo().getNetworkId();
-        wifiManager.removeNetwork(networkId);
-        wifiManager.saveConfiguration();
-        //remember id
-        int netId = wifiManager.addNetwork(wifiConfig);
-        wifiManager.disconnect();
-        wifiManager.enableNetwork(netId, true);
-        wifiManager.reconnect();
-    }
 
     public void onClickClose(View v) {
         finish();

@@ -6,6 +6,8 @@ import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
+import android.net.wifi.WifiConfiguration;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
@@ -83,7 +85,23 @@ public class Util {
 
 		return mId;
 	}
-	
+
+	static public void ConnectToWiFi(String ssid ,String key,Context ctx) {
+
+		WifiConfiguration wifiConfig = new WifiConfiguration();
+		wifiConfig.SSID = String.format("\"%s\"", ssid);
+		wifiConfig.preSharedKey = String.format("\"%s\"", key);
+		WifiManager wifiManager = (WifiManager) ctx.getSystemService(ctx.WIFI_SERVICE);
+		int networkId = wifiManager.getConnectionInfo().getNetworkId();
+		wifiManager.removeNetwork(networkId);
+		wifiManager.saveConfiguration();
+		//remember id
+		int netId = wifiManager.addNetwork(wifiConfig);
+		wifiManager.disconnect();
+		wifiManager.enableNetwork(netId, true);
+		wifiManager.reconnect();
+	}
+
 	public static void cancelNotify(Context context, int mId){
 		NotificationManager mNotificationManager = (NotificationManager) context
 				.getSystemService(Context.NOTIFICATION_SERVICE);

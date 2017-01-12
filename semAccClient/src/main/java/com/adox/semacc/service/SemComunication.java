@@ -9,6 +9,7 @@ import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.SystemClock;
+import android.os.Vibrator;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 
@@ -100,10 +101,9 @@ public class SemComunication extends BroadcastReceiver implements Runnable, UdpD
      * Cierra todas las conexiones y elimina el cliente
      */
     public void close() {
-        if (this.client != null && this.client.isConnected()) {
-            this.client.close();
-        }
-        this.running = false;
+
+        this.client.close();
+
     }
 
     /**
@@ -121,13 +121,6 @@ public class SemComunication extends BroadcastReceiver implements Runnable, UdpD
     @Override
     public void onInit(int i) {
 
-
-    }
-
-    /**
-     * Informa el tiempo para cruzar.
-     */
-    private void informTimeToCross() {
 
     }
 
@@ -160,13 +153,23 @@ public class SemComunication extends BroadcastReceiver implements Runnable, UdpD
         data = data.substring(data.indexOf('<') + 1, data.indexOf('>'));
 
         char first = data.charAt(0);
+        String tiempo=data.substring(1, 4);
+        String calle=data.substring(4,data.length());
+        Log.i("#FSEM# SERVICE", tiempo + "+" + calle);
         try{
+            int tiempoo = Integer.parseInt(tiempo);
             if("R".equals(String.valueOf(first))){
                 Log.i("#FSEM# SERVICE","rojo");
-                textToSpeech.speak("Esta en rojo", TextToSpeech.QUEUE_FLUSH, null);
+                vibrarNoCruzar();
+                textToSpeech.speak("Espere "+tiempoo+"segundos para cruzar "+calle, TextToSpeech.QUEUE_FLUSH, null);
             }else if("V".equals(String.valueOf(first))){
                 Log.i("#FSEM# SERVICE", "verde");
-                textToSpeech.speak("Esta en verde", TextToSpeech.QUEUE_FLUSH, null);
+                vibrarCruzar();
+                textToSpeech.speak("Tiene "+tiempoo+"segundos para cruzar "+calle, TextToSpeech.QUEUE_FLUSH, null);
+            }else if("A".equals(String.valueOf(first))){
+                Log.i("#FSEM# SERVICE", "amarillo");
+                vibrarNoCruzar();
+                textToSpeech.speak("Ultimos "+tiempoo+"segundos ", TextToSpeech.QUEUE_FLUSH, null);
             }
         }catch (Exception e) {
                 e.printStackTrace();
@@ -174,17 +177,18 @@ public class SemComunication extends BroadcastReceiver implements Runnable, UdpD
 
     }
 
-    /**
-     * Invierte los roles de las calles, para cambiar el cruce-
-     * Es un paleativo en caso de que no llegue respuesa de requestFull.
-     */
-    private void invertStreets() {
-        this.canCross = !this.canCross;
-        String calleAux = this.calleVerde;
-        this.calleVerde = this.calleRojo;
-        this.calleRojo = this.calleVerde;
+
+
+    private void vibrarNoCruzar(){
+        Vibrator v = (Vibrator) this.context.getSystemService(Context.VIBRATOR_SERVICE);
+        // Vibrate for 500 milliseconds
+        v.vibrate(300);
     }
 
-
+    private void vibrarCruzar(){
+        Vibrator v = (Vibrator) this.context.getSystemService(Context.VIBRATOR_SERVICE);
+        // Vibrate for 500 milliseconds
+        v.vibrate(1200);
+    }
 
 }

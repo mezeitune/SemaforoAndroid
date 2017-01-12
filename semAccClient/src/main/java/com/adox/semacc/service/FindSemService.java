@@ -41,7 +41,7 @@ public class FindSemService extends IntentService{
 		super.onCreate();
 		Log.i("#FSEM#  SERVICE", "onCreate FindSemService");
 
-		MainActivity.ConnectToWiFi("InfoSign", "adox2311", getApplicationContext());
+		Util.ConnectToWiFi("InfoSign", "adox2311", getApplicationContext());
 		SemComunication.create("InfoSign", getApplicationContext());
 	}
 

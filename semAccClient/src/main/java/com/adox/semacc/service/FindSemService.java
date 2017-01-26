@@ -29,6 +29,7 @@ public class FindSemService extends IntentService{
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		super.onStartCommand(intent, flags, startId);
 		Log.i(" #FSEM# SERVICE", "onStartCommand FindSemService");
+
 		return START_STICKY;
 	}
 
@@ -41,6 +42,7 @@ public class FindSemService extends IntentService{
 		super.onCreate();
 		Log.i("#FSEM#  SERVICE", "onCreate FindSemService");
 
+
 		Util.ConnectToWiFi("InfoSign", "adox2311", getApplicationContext());
 		SemComunication.create("InfoSign", getApplicationContext());
 	}
@@ -50,6 +52,7 @@ public class FindSemService extends IntentService{
 	@Override
 	protected void onHandleIntent(Intent intent) {
 		Log.i("#FSEM# SERVICE", "onHandleIntent FindSignService");
+
 	}
 
 	@Override

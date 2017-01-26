@@ -2,25 +2,25 @@
 <items version="2" >
 
     <item
-        jar="/Users/macbook/Desktop/SemaforoAndroidOriginal/semAccClient/build/intermediates/exploded-aar/SemaforoAndroidOriginal/adoxLib/unspecified/jars/classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="d4ad045c60a57268fd7384671699a23d9a0b6e9f">
-        <dex dex="/Users/macbook/Desktop/SemaforoAndroidOriginal/semAccClient/build/intermediates/pre-dexed/debug/classes-7c7cb737050176160626f8355daaef693b931e09.jar" />
-    </item>
-    <item
-        jar="/Users/macbook/Desktop/SemaforoAndroidNuevaVersion/semAccClient/build/intermediates/exploded-aar/SemaforoAndroidNuevaVersion/adoxLib/unspecified/jars/classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="88f954b5ef4361f21d7a484c4e19965b3e0c43c6">
-        <dex dex="/Users/macbook/Desktop/SemaforoAndroidNuevaVersion/semAccClient/build/intermediates/pre-dexed/debug/classes-108c3a471a997baa0b1e0821a1b9e8e3c68e26c9.jar" />
-    </item>
-    <item
         jar="/Users/macbook/Library/Android/sdk/extras/android/m2repository/com/android/support/support-v4/18.0.0/support-v4-18.0.0.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="44ec51e9d395a47aab135e5e1b556c0007442156">
         <dex dex="/Users/macbook/Desktop/SemaforoAndroidOriginal/semAccClient/build/intermediates/pre-dexed/debug/support-v4-18.0.0-b78c513bfdcd3c1ff44f95b93a3999efaa69b131.jar" />
+    </item>
+    <item
+        jar="/Users/macbook/Desktop/SemaforoAndroid/semAccClient/build/intermediates/exploded-aar/SemaforoAndroid/adoxLib/unspecified/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="58549bdf67950bec95f7c3cd683ed8d1496a8512">
+        <dex dex="/Users/macbook/Desktop/SemaforoAndroid/semAccClient/build/intermediates/pre-dexed/debug/classes-98b1adbf28dd8f2a8a88628e4f6e3eedb76b4252.jar" />
+    </item>
+    <item
+        jar="/Users/macbook/Desktop/SemaforoAndroidOriginal/semAccClient/build/intermediates/exploded-aar/SemaforoAndroidOriginal/adoxLib/unspecified/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="d4ad045c60a57268fd7384671699a23d9a0b6e9f">
+        <dex dex="/Users/macbook/Desktop/SemaforoAndroidOriginal/semAccClient/build/intermediates/pre-dexed/debug/classes-7c7cb737050176160626f8355daaef693b931e09.jar" />
     </item>
 
 </items>

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SemaforoAndroidNuevaVersion.iml" filepath="$PROJECT_DIR$/SemaforoAndroidNuevaVersion.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SemaforoAndroid.iml" filepath="$PROJECT_DIR$/SemaforoAndroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/adoxLib/adoxLib.iml" filepath="$PROJECT_DIR$/adoxLib/adoxLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/semAccClient/semAccClient.iml" filepath="$PROJECT_DIR$/semAccClient/semAccClient.iml" />
     </modules>

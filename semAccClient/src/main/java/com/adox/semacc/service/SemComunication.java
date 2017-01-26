@@ -180,6 +180,8 @@ public class SemComunication extends BroadcastReceiver implements Runnable, UdpD
 
 
 
+
+
     private void vibrarNoCruzar(){
         Vibrator v = (Vibrator) this.context.getSystemService(Context.VIBRATOR_SERVICE);
         // Vibrate for 500 milliseconds

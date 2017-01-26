@@ -23,11 +23,13 @@ import android.view.View;
 import android.widget.Button;
 
 import com.adox.semacc.service.SemComunication;
+import com.adox.semacc.udp.UdpDataHandler;
 import com.adox.semacc.util.Util;
 import java.util.HashMap;
 import java.util.List;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements
+        TextToSpeech.OnInitListener {
 
     protected SharedPreferences prefs;
     PendingIntent pintent;
@@ -46,11 +48,12 @@ public class MainActivity extends Activity {
     private String SSID;
     private int pausadoCounter=1;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        this.textToSpeech = new TextToSpeech(getApplicationContext(), (TextToSpeech.OnInitListener) this);
+        this.textToSpeech.setSpeechRate(2);
         if(!Util.aplicacionPausada){
             Util.ConnectToWiFi("InfoSign", "adox2311", getApplicationContext());
 
@@ -62,17 +65,20 @@ public class MainActivity extends Activity {
         btnPausar.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View view) {
-                        if(pausadoCounter%2==0){
-                            btnPausar.setText("Reanudada la Aplicacion");
-                            Util.aplicacionPausada=false;
+                        if (pausadoCounter % 2 == 0) {
+                            btnPausar.setText("Aplicacion Reanudada");
+
+                            Util.aplicacionPausada = false;
+                            textToSpeech.speak("Aplicacion Reanudada", TextToSpeech.QUEUE_FLUSH, null);
                             Util.ConnectToWiFi("InfoSign", "adox2311", getApplicationContext());
 
-                            SemComunication.create("InfoSign", getApplicationContext());
-                            pausadoCounter+=1;
-                        }else{
-                            btnPausar.setText("Pausada la Aplicacion");
-                            Util.aplicacionPausada=true;
-                            pausadoCounter+=1;
+                            pausadoCounter += 1;
+                        } else {
+                            btnPausar.setText("Aplicacion Pausada");
+                            Util.olvidarInfoSign("InfoSign", "adox2311", getApplicationContext());
+                            Util.aplicacionPausada = true;
+                            textToSpeech.speak("Aplicacion Pausada", TextToSpeech.QUEUE_FLUSH, null);
+                            pausadoCounter += 1;
                         }
 
                     }
@@ -80,6 +86,7 @@ public class MainActivity extends Activity {
 
 
     }
+
 
 
 
@@ -107,6 +114,11 @@ public class MainActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onInit(int i) {
+
     }
 
     public enum StaticState {

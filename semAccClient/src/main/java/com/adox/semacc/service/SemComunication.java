@@ -145,34 +145,35 @@ public class SemComunication extends BroadcastReceiver implements Runnable, UdpD
     @Override
     public void onDataRead(String data) {
         Log.i("#FSEM# SERVICE", "READ: " + data);
-
-        if (data == null) {
-            data = "";
-        }
-
-        data = data.substring(data.indexOf('<') + 1, data.indexOf('>'));
-
-        char first = data.charAt(0);
-        String tiempo=data.substring(1, 4);
-        String calle=data.substring(4,data.length());
-        Log.i("#FSEM# SERVICE", tiempo + "+" + calle);
-        try{
-            int tiempoo = Integer.parseInt(tiempo);
-            if("R".equals(String.valueOf(first))){
-                Log.i("#FSEM# SERVICE","rojo");
-                vibrarNoCruzar();
-                textToSpeech.speak("Espere "+tiempoo+"segundos para cruzar "+calle, TextToSpeech.QUEUE_FLUSH, null);
-            }else if("V".equals(String.valueOf(first))){
-                Log.i("#FSEM# SERVICE", "verde");
-                vibrarCruzar();
-                textToSpeech.speak("Tiene "+tiempoo+"segundos para cruzar "+calle, TextToSpeech.QUEUE_FLUSH, null);
-            }else if("A".equals(String.valueOf(first))){
-                Log.i("#FSEM# SERVICE", "amarillo");
-                vibrarNoCruzar();
-                textToSpeech.speak("Ultimos "+tiempoo+"segundos ", TextToSpeech.QUEUE_FLUSH, null);
+        if(!Util.aplicacionPausada){
+            if (data == null) {
+                data = "";
             }
-        }catch (Exception e) {
-                e.printStackTrace();
+
+            data = data.substring(data.indexOf('<') + 1, data.indexOf('>'));
+
+            char first = data.charAt(0);
+            String tiempo=data.substring(1, 4);
+            String calle=data.substring(4,data.length());
+            Log.i("#FSEM# SERVICE", tiempo + "+" + calle);
+            try{
+                int tiempoo = Integer.parseInt(tiempo);
+                if("R".equals(String.valueOf(first))){
+                    Log.i("#FSEM# SERVICE","rojo");
+                    vibrarNoCruzar();
+                    textToSpeech.speak("Espere "+tiempoo+"segundos para cruzar "+calle, TextToSpeech.QUEUE_FLUSH, null);
+                }else if("V".equals(String.valueOf(first))){
+                    Log.i("#FSEM# SERVICE", "verde");
+                    vibrarCruzar();
+                    textToSpeech.speak("Tiene "+tiempoo+"segundos para cruzar "+calle, TextToSpeech.QUEUE_FLUSH, null);
+                }else if("A".equals(String.valueOf(first))){
+                    Log.i("#FSEM# SERVICE", "amarillo");
+                    vibrarNoCruzar();
+                    textToSpeech.speak("Ultimos "+tiempoo+"segundos ", TextToSpeech.QUEUE_FLUSH, null);
+                }
+            }catch (Exception e) {
+                    e.printStackTrace();
+            }
         }
 
     }

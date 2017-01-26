@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 import com.adox.semacc.service.SemComunication;
 import com.adox.semacc.util.Util;
@@ -32,7 +33,7 @@ public class MainActivity extends Activity {
     PendingIntent pintent;
     AlarmManager alarmManager;
 
-
+    private Button btnPausar;
     private static int networkId;
     private static String currentSSID;
     public static StaticState staticState = StaticState.NO_CONECTADO;
@@ -43,16 +44,40 @@ public class MainActivity extends Activity {
     private WifiConfiguration conf;
     private Context context;
     private String SSID;
+    private int pausadoCounter=1;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if(!Util.aplicacionPausada){
+            Util.ConnectToWiFi("InfoSign", "adox2311", getApplicationContext());
 
-        Util.ConnectToWiFi("InfoSign", "adox2311", getApplicationContext());
+            SemComunication.create("InfoSign", getApplicationContext());
+        }
 
-        SemComunication.create("InfoSign", getApplicationContext());
+
+        btnPausar = (Button) findViewById(R.id.btnPausar);
+        btnPausar.setOnClickListener(
+                new View.OnClickListener() {
+                    public void onClick(View view) {
+                        if(pausadoCounter%2==0){
+                            btnPausar.setText("Reanudada la Aplicacion");
+                            Util.aplicacionPausada=false;
+                            Util.ConnectToWiFi("InfoSign", "adox2311", getApplicationContext());
+
+                            SemComunication.create("InfoSign", getApplicationContext());
+                            pausadoCounter+=1;
+                        }else{
+                            btnPausar.setText("Pausada la Aplicacion");
+                            Util.aplicacionPausada=true;
+                            pausadoCounter+=1;
+                        }
+
+                    }
+                });
+
 
     }
 

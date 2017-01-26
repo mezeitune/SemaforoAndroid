@@ -34,13 +34,12 @@
         android:text="@string/main_thanks" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/btnPausar"
         android:textSize="18sp"
         style="@style/btnAdox"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:onClick="onClickClose"
-        android:text="@string/main_btn_salir" />
+        android:text="Pausar Aplicacion" />
 
 </LinearLayout>
 <!-- From: file:/Users/macbook/Desktop/SemaforoAndroid/semAccClient/src/main/res/layout/activity_main.xml -->

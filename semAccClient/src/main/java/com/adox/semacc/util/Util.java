@@ -12,13 +12,17 @@ import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
 
+import com.adox.semacc.service.SemComunication;
+
 public class Util {
 	public static final String SHAPREF = "semacc";
 	public static final String PRIMERAVEZ_SP = "primera_vez";
 	public static final int SEMACC_NOTIFY = 13584249;
 	
 	public static final long SEGS_POS = 30000L; // 30 seg
-	
+
+	public static boolean aplicacionPausada=false;
+
 	public static final String P_ACC = "acc";
 	public static final String ACC_REPRODUCIR = "R";
 	public static final String ACC_PRUEBA = "P";
@@ -101,6 +105,9 @@ public class Util {
 		wifiManager.enableNetwork(netId, true);
 		wifiManager.reconnect();
 	}
+
+
+
 
 	public static void cancelNotify(Context context, int mId){
 		NotificationManager mNotificationManager = (NotificationManager) context
